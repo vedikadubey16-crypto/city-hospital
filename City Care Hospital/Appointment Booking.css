@@ -1,0 +1,112 @@
+*{
+    margin:0px;
+    padding:0px;
+}
+.navbar{
+    height:3.125rem;
+    width:100%;
+    background-color: white;
+    top:0;
+    display:flex;
+    align-items:center;
+    }
+.logo{color: blue;margin-left: 10px;
+margin-right:80px;
+}
+.navbar button{
+    background-color: red;
+    position:absolute;
+    right:0;
+    height:40px;
+    font-size:1em;
+
+}
+a{ 
+    justify-content: center;
+    margin-right:40px;
+    margin-left:20px;
+    color:rgb(5, 5, 146);
+    
+    
+}
+.navbar a{
+    padding: 0%;
+    height:100%;
+    font-size: 1.3em;
+}
+#navbar2{
+    
+    height:60px;
+    width:100%;
+    background-color:aliceblue;
+    color:blue;
+    display:flex;
+    justify-content: center;
+    font-size: x-large;
+    align-items: center;
+    flex-direction: column;
+}
+.info{
+    justify-content:center;
+    font-size: 15px;
+}
+#content{
+    height:500px;
+    width:80%;
+    display:flex;
+    justify-content: flex-start;
+    border: 1px solid black;
+    flex-direction: column;
+    align-items: flex-start;
+    border-radius: 6px;
+    margin-top:10px;
+    margin-right: 90px;;
+    margin-left:120px;
+    box-shadow: inset 0 0 25px rgba(126, 166, 184, 0.25);
+}
+.details {
+    margin-top: 25px;
+    margin-left: 30px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap:wrap;
+    row-gap: 40px;
+    column-gap: 200px;
+}
+.field {
+    display: flex;
+    flex-direction: row;
+}
+
+.field label {
+    color: blue;
+    gap:40px;
+}
+
+.field input {
+    width: 250px;
+    height: 20px;
+    padding: 5px;
+}
+#dep{
+    width:500px;
+    height:20px;
+    row-gap: 0;
+    margin-left:10px;
+}
+#reason{
+    width:500px;
+    height:20px;
+    row-gap: 0;
+    margin-left:10px;
+
+}
+.book{
+    width:900px;
+    height:60px;
+    margin-left:10px;
+    background-color: blue;
+    color:white;
+    font-size: large;
+
+}
