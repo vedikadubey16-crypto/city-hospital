@@ -21,18 +21,20 @@ margin-right:80px;
     font-size:1em;
 
 }
-a{ 
+.start{ 
     justify-content: center;
     margin-right:40px;
     margin-left:20px;
-    color:rgb(5, 5, 146);
+    color:blue;
     
     
 }
+
 .navbar a{
     padding: 0%;
     height:100%;
     font-size: 1.3em;
+    text-decoration: none;
 }
 #navbar2{
     
@@ -109,4 +111,43 @@ a{
     color:white;
     font-size: large;
 
+}
+.last{margin-top:25px;
+    background-color: blue;
+    height:4rem;
+    width:100%;
+    display:flex;
+    align-items:center;
+    flex-direction: column;
+    }
+.footertop{
+    display: flex;
+    align-items: center;
+}
+.endlogo{color:white;margin-left: 10px;
+margin-right:80px;
+}
+.end{ 
+    justify-content: center;
+    margin-right:40px;
+    margin-left:20px;
+    color:white;
+    font-size: large;
+    text-decoration: none;
+}
+
+.slogan{
+    display:flex;
+    flex-direction: column;
+}
+.eend{
+    margin-left:50px;
+    color:white;
+}
+.copyright{
+    color: white;
+    text-align: center;
+    margin-top: 5px;
+    width: 100%;
+    font-size: small;
 }

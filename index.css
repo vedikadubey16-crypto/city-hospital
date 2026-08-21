@@ -1,0 +1,101 @@
+*{
+    margin:0px;
+    padding:0px;
+}
+.navbar{
+    height:3.125rem;
+    width:100%;
+    background-color: white;
+    top:0;
+    display:flex;
+    align-items:center;
+    }
+.logo{color: blue;margin-left: 10px;
+margin-right:80px;
+}
+.navbar button{
+    background-color: red;
+    position:absolute;
+    right:0;
+    height:40px;
+    font-size:1em;
+
+}
+.start{ 
+    justify-content: center;
+    margin-right:40px;
+    margin-left:20px;
+    color:blue;
+    
+    
+}
+
+.navbar a{
+    padding: 0%;
+    height:100%;
+    font-size: 1.3em;
+    text-decoration: none;
+}
+#block{
+    height:300px;
+    width:100%;
+    background: linear-gradient(135deg, #90cfef, #f9f9f9);
+    display:flex ;
+    justify-content: space-between;
+}
+.image{
+    height:300px;
+    width:250px;
+    object-fit: cover;
+    margin-right: 100px;
+    border-radius:30px ;
+    
+}
+.text{
+    display:flex;
+    flex-direction: column;
+    column-gap:0;
+}
+#maintext{
+    color: rgb(3, 3, 74);
+    font-size: 40px;
+    margin-top: 30px;
+    margin-left: 200px;
+    
+}
+#extra{
+    font-size: 20px;
+    color: rgb(3, 3, 74);
+    margin-left: 200px;
+    
+}
+#bbutton{
+    background-color: rgb(255, 0, 0);
+    height:60px;
+    width:250px;
+    border-radius: 10px;
+    margin-left: 200px;
+    margin-top: 20px;
+    font-size: 15px;
+}
+#symbol{
+     justify-content: center;
+     font-size: xx-large;
+     margin-bottom: 50px;
+}
+#hdepartment{
+   display: flex;
+   justify-content: center;
+   color:rgb(4, 4, 147);
+   font-size:15px;
+   font-style: bold;
+   font-weight: 100; 
+   margin-top: 20px;
+}
+#motive{
+    display: flex;
+   justify-content: center;
+   color: rgb(3, 3, 74);
+   font-size:15px;
+}
+
