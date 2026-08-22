@@ -10,16 +10,16 @@
     display:flex;
     align-items:center;
     }
-.logo{color: rgb(4, 4, 147);margin-left: 10px;
+.logo{color: rgb(3, 3, 74);margin-left: 10px;
 margin-right:80px;
 }
 .navbar button{
     background-color: red;
+    color:white;
     position:absolute;
     right:0;
     height:40px;
     font-size:1em;
-    color:white;
 
 }
 .start{ 
@@ -37,53 +37,17 @@ margin-right:80px;
     font-size: 1.3em;
     text-decoration: none;
 }
-#block{
-    height:300px;
-    width:100%;
-    background: linear-gradient(135deg, #90cfef, #f9f9f9);
-    display:flex ;
-    justify-content: space-between;
-}
-.image{
-    height:300px;
-    width:250px;
-    object-fit: cover;
-    margin-right: 100px;
-    border-radius:30px ;
+#navbar2{
     
-}
-.text{
-    display:flex;
-    flex-direction: column;
-    column-gap:0;
-}
-#maintext{
-    color: rgb(3, 3, 74);
-    font-size: 40px;
-    margin-top: 30px;
-    margin-left: 200px;
-    
-}
-#extra{
-    font-size: 20px;
-    color: rgb(3, 3, 74);
-    margin-left: 200px;
-    
-}
-#bbutton{
-    background-color: rgb(255, 0, 0);
     height:60px;
-    width:250px;
-    border-radius: 10px;
-    margin-left: 200px;
-    margin-top: 20px;
-    font-size: 15px;
-    color:white;
-}
-#symbol{
-     justify-content: center;
-     font-size: xx-large;
-     margin-bottom: 50px;
+    width:100%;
+    background-color:aliceblue;
+    color:rgb(4, 4, 147);
+    display:flex;
+    justify-content: center;
+    font-size: x-large;
+    align-items: center;
+    flex-direction: column;
 }
 #hdepartment{
    display: flex;
@@ -104,6 +68,7 @@ margin-right:80px;
     height:200px;
     width:100%;
     display:flex;
+    margin-top: 20px;
    
 }
 #cardiology{
@@ -254,127 +219,7 @@ margin-right:80px;
     margin-left: 90px;
     margin-top: 10px;
 }
-#book{
-    height:80px;
-    width:970px;
-    box-shadow:0px 4px 10px;
-    margin-top: 60px;
-    border-radius: 10px;
-    margin-left: 140px;
-    display:flex;
-    flex-direction: row;
-}
-#calender{
-    height:70px;
-    width:70px;
-    margin-top: 5px;
-    border-radius: 100%;
-    margin-left:30px;
-}
-#matter{
-    display: flex;
-    flex-direction: column;
-}
-#hbook{
-    color:rgb(4, 4, 147);
-    margin-top: 10px;
-    font-size: larger;
-    margin-left: 40px;
-}
-#cbook{
-    color: #788891;
-    margin-top: 5px;
-    margin-left: 40px;
-}
-#bookingbutton{
-    background-color:rgb(4,4,147);
-    margin-left: 350px;
-    height:40px;
-    margin-top: 20px;
-    width:100px;
-
-}
-#textbutton{
-    color:white;
-    text-decoration: none;
-}
-#importance{
-    height:220px;
-    width:100%;
-    margin-top: 30px;
-    background-color:rgb(229, 244, 252);
-    display: flex;
-    flex-direction: column;
-  
-}
-#himp{
-   color:rgb(4,4,147);
-    font-size: 25px;
-    text-align: center;
-    margin-top:20px;
-}
-#benefits{
-    display:flex;
-    flex-direction: row;
-}
-#expdoc{
-   display:flex;
-   flex-direction:column ;
-}
-#expdocimg{
-    height:80px;
-    width:80px;
-    margin-left: 140px;
-    margin-top: 7px;;
-    border-radius:100%;
-
-}
-#bimp{
-    color:rgb(4,4,147);
-    font-size: large;
-    margin-left: 140px;
-    margin-top: 10px;
-    
-}
-#simp{
-    color:rgb(4,4,147);
-    font-size:15px;
-    margin-left:140px;
-}
-#quickser{
-   display:flex;
-   flex-direction:column ;
-}
-#quickservimg{
-    height:80px;
-    width:80px;
-    margin-left: 140px;
-    margin-top: 7px;
-    border-radius:100%;
-}
-#advfac{
-   display:flex;
-   flex-direction:column ;
-}
-#advfacimg{
-    height:80px;
-    width:80px;
-    margin-left: 140px;
-    margin-top: 7px;
-    border-radius:100%;
-}
-#care{
-   display:flex;
-   flex-direction:column ;
-}
-#careimg{
-    height:80px;
-    width:80px;
-    margin-left: 140px;
-    margin-top: 7px;
-    border-radius:100%;
-}
-.last{margin-top:30px;
+.last{margin-top:50px;
     background-color: rgb(4,4,147);
     height:4rem;
     width:100%;

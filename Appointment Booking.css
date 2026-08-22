@@ -10,11 +10,12 @@
     display:flex;
     align-items:center;
     }
-.logo{color: blue;margin-left: 10px;
+.logo{color: rgb(4,4,147);margin-left: 10px;
 margin-right:80px;
 }
 .navbar button{
     background-color: red;
+    color:white;
     position:absolute;
     right:0;
     height:40px;
@@ -25,7 +26,7 @@ margin-right:80px;
     justify-content: center;
     margin-right:40px;
     margin-left:20px;
-    color:blue;
+    color:rgb(4,4,147);
     
     
 }
@@ -41,7 +42,7 @@ margin-right:80px;
     height:60px;
     width:100%;
     background-color:aliceblue;
-    color:blue;
+    color:rgb(4,4,147);
     display:flex;
     justify-content: center;
     font-size: x-large;
@@ -81,7 +82,7 @@ margin-right:80px;
 }
 
 .field label {
-    color: blue;
+    color: rgb(4,4,147);
     gap:40px;
 }
 
@@ -107,13 +108,13 @@ margin-right:80px;
     width:900px;
     height:60px;
     margin-left:10px;
-    background-color: blue;
+    background-color: rgb(4,4,147);
     color:white;
     font-size: large;
 
 }
 .last{margin-top:25px;
-    background-color: blue;
+    background-color: rgb(4,4,147);
     height:4rem;
     width:100%;
     display:flex;
@@ -150,4 +151,5 @@ margin-right:80px;
     margin-top: 5px;
     width: 100%;
     font-size: small;
+    margin-top: 8px;
 }
