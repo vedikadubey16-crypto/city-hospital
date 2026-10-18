@@ -429,32 +429,19 @@ form.addEventListener("submit", async function(event) {
 
             // Appointment has been saved by FastAPI.
 
-            // NEW: Save a copy in this browser for the
-            // appointments.html demonstration table.
+            // Save only the latest confirmed appointment
+            // in this browser for appointments.html.
 
             let historySaved = false;
 
             try {
 
-                const storedAppointments = JSON.parse(
-                    localStorage.getItem(
-                        "demoAppointments"
-                    ) || "[]"
-                );
-
-                const savedAppointments =
-                    Array.isArray(storedAppointments)
-                    ? storedAppointments
-                    : [];
-
-                savedAppointments.push({
-                    ...appointmentData,
-                    id: result.appointment_id
-                });
-
                 localStorage.setItem(
-                    "demoAppointments",
-                    JSON.stringify(savedAppointments)
+                    "myAppointment",
+                    JSON.stringify({
+                        ...appointmentData,
+                        id: result.appointment_id
+                    })
                 );
 
                 historySaved = true;
@@ -462,7 +449,7 @@ form.addEventListener("submit", async function(event) {
             } catch (storageError) {
 
                 console.error(
-                    "Unable to save browser history:",
+                    "Unable to save appointment locally:",
                     storageError
                 );
 
@@ -476,8 +463,8 @@ form.addEventListener("submit", async function(event) {
             );
 
 
-            // NEW: Redirect to appointments.html
-            // only if browser history was saved.
+            // Redirect to the appointment table
+            // after successfully saving browser data.
 
             if (historySaved) {
 
@@ -517,8 +504,7 @@ form.addEventListener("submit", async function(event) {
         console.error("Booking error:", error);
 
         alert(
-            "Unable to connect to FastAPI. " +
-            "Please make sure the backend is running."
+            "Booking error: " + error.message
         );
 
     } finally {
