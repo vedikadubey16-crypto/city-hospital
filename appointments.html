@@ -1,0 +1,259 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Appointments - City Care Hospital</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f9f9f9;
+            color: rgb(3, 3, 74);
+        }
+
+        header {
+            background: rgb(4, 4, 147);
+            color: white;
+            padding: 18px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        header a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .appointments-page {
+            padding: 50px 5%;
+            min-height: 70vh;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 38px;
+            margin-bottom: 10px;
+        }
+
+        .description {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .table-container {
+            width: 100%;
+            overflow-x: auto;
+            background: linear-gradient(
+                to right, #90cfef, #f9f9f9
+            );
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.12);
+        }
+
+        table {
+            width: 100%;
+            min-width: 900px;
+            border-collapse: collapse;
+        }
+
+        th {
+            background: rgb(4, 4, 147);
+            color: white;
+            padding: 15px;
+            text-align: left;
+        }
+
+        td {
+            padding: 14px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        tbody tr:hover {
+            background: #f2f8ff;
+        }
+
+        #message {
+            text-align: center;
+            margin-top: 25px;
+            font-weight: bold;
+        }
+
+        footer {
+            background: rgb(4, 4, 147);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            h1 {
+                font-size: 30px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">
+        ♥︎ 🩺 ♥︎ CITY CARE HOSPITAL
+    </div>
+
+    <a href="main.html">
+        ← Back to Dashboard
+    </a>
+</header>
+
+<main class="appointments-page">
+
+    <h1>Booked Appointments</h1>
+
+    <p class="description">
+        View all appointments booked through
+        City Care Hospital.
+    </p>
+
+    <div class="table-container">
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Patient Name</th>
+                    <th>Date of Birth</th>
+                    <th>Phone</th>
+                    <th>Email</th>
+                    <th>Department</th>
+                    <th>Preferred Date</th>
+                    <th>Preferred Time</th>
+                    <th>Reason</th>
+                </tr>
+            </thead>
+
+            <tbody id="appointmentsBody">
+            </tbody>
+
+        </table>
+
+    </div>
+
+    <p id="message" role="status">
+        Loading appointments...
+    </p>
+
+</main>
+
+<footer>
+    <p>
+        © 2026 City Care Hospital. All Rights Reserved.
+    </p>
+</footer>
+
+<script>
+    const API_URL =
+        "http://127.0.0.1:8001/api/appointments";
+
+    async function loadAppointments() {
+
+        const tableBody = document.getElementById(
+            "appointmentsBody"
+        );
+
+        const message = document.getElementById(
+            "message"
+        );
+
+        try {
+            const response = await fetch(API_URL);
+
+            if (!response.ok) {
+                throw new Error(
+                    "Unable to fetch appointments"
+                );
+            }
+
+            const appointments = await response.json();
+
+            tableBody.innerHTML = "";
+
+            if (appointments.length === 0) {
+                message.textContent =
+                    "No appointments have been booked yet.";
+                return;
+            }
+
+            const fields = [
+                "full_name",
+                "date_of_birth",
+                "phone",
+                "email",
+                "department",
+                "preferred_date",
+                "preferred_time",
+                "reason"
+            ];
+
+            appointments.forEach(function(appointment) {
+
+                const row = document.createElement("tr");
+
+                fields.forEach(function(field) {
+                    const cell = document.createElement("td");
+
+                    cell.textContent =
+                        appointment[field] ?? "";
+
+                    row.appendChild(cell);
+                });
+
+                tableBody.appendChild(row);
+            });
+
+            message.textContent =
+                appointments.length +
+                " appointment(s) found.";
+
+        } catch (error) {
+
+            console.error(
+                "Error loading appointments:",
+                error
+            );
+
+            message.textContent =
+                "Unable to load appointments. " +
+                "Please check that the backend is running.";
+        }
+    }
+
+    loadAppointments();
+</script>
+
+</body>
+</html>

@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,67 +7,472 @@
     <title>Booking form</title>
     <link rel="stylesheet" href="Appointment Booking.css">
 </head>
+
 <body>
-    <header><div class="navbar">
-    <a class="start"><span class="logo"><b>   ♥︎ 🩺 ♥︎   CITY CARE HOSPITAL</span></b></a>
-    <a href="index.html" class="start" target="_self">Home</a>
-    <a href="departemnt.html" class="start" target="_self">Departments </a>
-    <a href="booking.html" class="start" target="_self">Book Appointment</a>
-    <button>Emergency? Call ☎ 123-456-789</button></div></header>
-    <div id="navbar2"><b>BOOK YOUR APPOINTMENT</b>
-    <span class="info">Fill in the form to schedule your visit</span></div>
-    <div id="content">
-        <form class="details">
-            <div class="field">
-            <label ><b>Full Name</b></label>
-            <input type="text" placeholder="Enter your full name" id="name">
-        </div>
+
+<header>
+    <div class="navbar">
+
+        <a class="start">
+            <span class="logo">
+                <b>♥︎ 🩺 ♥︎ CITY CARE HOSPITAL</b>
+            </span>
+        </a>
+
+        <a href="index.html" class="start" target="_self">
+            Home
+        </a>
+
+        <a href="departemnt.html" class="start" target="_self">
+            Departments
+        </a>
+
+        <a href="booking.html" class="start" target="_self">
+            Book Appointment
+        </a>
+
+        <button type="button">
+            Emergency? Call ☎ 123-456-789
+        </button>
+
+    </div>
+</header>
+
+
+<div id="navbar2">
+    <b>BOOK YOUR APPOINTMENT</b>
+
+    <span class="info">
+        Fill in the form to schedule your visit
+    </span>
+</div>
+
+
+<div id="content">
+
+    <form class="details" id="appointmentForm">
 
         <div class="field">
-            <label ><b>Date Of Birth</b></label>
-            <input type="date">
+            <label><b>Full Name</b></label>
+
+            <input
+                type="text"
+                placeholder="Enter your full name"
+                id="name"
+                required
+            >
         </div>
+
+
+        <div class="field">
+            <label><b>Date Of Birth</b></label>
+
+            <input
+                type="date"
+                id="dob"
+                required
+            >
+        </div>
+
+
         <div class="field">
             <label><b>Phone Number</b></label>
-            <input type="tel"></div>
+
+            <input
+                type="tel"
+                id="phone"
+                required
+            >
+        </div>
+
+
         <div class="field">
             <label><b>Email</b></label>
-            <input type="email">
+
+            <input
+                type="email"
+                id="email"
+                required
+            >
         </div>
+
+
+        <!-- DEPARTMENT DROPDOWN -->
+
         <div class="field">
-           <label><b>Department</b></label>
-           <input type="text" placeholder="Enter your Department" id="dep">
+
+            <label><b>Department</b></label>
+
+            <select id="dep" required>
+
+                <option value="">
+                    Select your Department
+                </option>
+
+                <option value="Cardiology">
+                    Cardiology
+                </option>
+
+                <option value="Dentistry">
+                    Dentistry
+                </option>
+
+                <option value="General Medicine">
+                    General Medicine
+                </option>
+
+                <option value="Pediatrics">
+                    Pediatrics
+                </option>
+
+                <option value="Pulmonology">
+                    Pulmonology
+                </option>
+
+                <option value="Orthopedics">
+                    Orthopedics
+                </option>
+
+            </select>
+
         </div>
+
+
         <div class="field">
-            <label ><b>Preferred Date</b></label>
-            <input type="date">
+            <label><b>Preferred Date</b></label>
+
+            <input
+                type="date"
+                id="preferred_date"
+                required
+            >
         </div>
+
+
         <div class="field">
-            <label ><b>Preferred Time</b></label>
-            <input type="time">
+            <label><b>Preferred Time</b></label>
+
+            <input
+                type="time"
+                id="preferred_time"
+                required
+            >
         </div>
+
+
+        <!-- DYNAMIC REASON DROPDOWN -->
+
         <div class="field">
-           <label><b>Reason for your visit</b></label>
-           <input type="text" placeholder="Enter your reason" id="reason">
+
+            <label><b>Reason for your visit</b></label>
+
+            <select id="reason" required disabled>
+
+                <option value="">
+                    Select Department First
+                </option>
+
+            </select>
+
         </div>
-        <button class="book"><b>BOOK APPOINTMENT</b></button>
-        </form>
-    </div>
-    <footer>
+
+
+        <button type="submit" class="book">
+            <b>BOOK APPOINTMENT</b>
+        </button>
+
+    </form>
+
+</div>
+
+
+<footer>
+
     <div class="last">
+
         <div class="footertop">
-        <div class="slogan">
-           <a class="end"><span class="endlogo"><b>  ✚    CITY CARE HOSPITAL</span></b></a>
-           <span class="eend">Better health,brighter future</span>
-         </div>
-    <a href="index.html"class="end" target="_self">Home</a>
-    <a href="#" class="end">Departments </a>
-    <a href="booking.html" class="end" target="_self">Book Appointment</a>
-    <a class="end">Emergency? Call ☎: 123-456-789</a></div>
-    <div class="copyright">©2026 City Care Hospital</div>
+
+            <div class="slogan">
+
+                <a class="end">
+                    <span class="endlogo">
+                        <b>✚ CITY CARE HOSPITAL</b>
+                    </span>
+                </a>
+
+                <span class="eend">
+                    Better health,brighter future
+                </span>
+
+            </div>
+
+            <a href="index.html" class="end" target="_self">
+                Home
+            </a>
+
+            <a href="#" class="end">
+                Departments
+            </a>
+
+            <a href="booking.html" class="end" target="_self">
+                Book Appointment
+            </a>
+
+            <a class="end">
+                Emergency? Call ☎: 123-456-789
+            </a>
+
+        </div>
+
+        <div class="copyright">
+            ©2026 City Care Hospital
+        </div>
+
     </div>
-    </footer>
-    
+
+</footer>
+
+
+<!-- JAVASCRIPT FOR DEPARTMENT AND FASTAPI -->
+
+<script>
+
+// Department-wise services from hospital pages
+
+const departmentFacilities = {
+
+    "Cardiology": [
+        "Heart Check-up",
+        "ECG",
+        "Echocardiography",
+        "Cardiac Consultation"
+    ],
+
+    "Dentistry": [
+        "Dental Check-up",
+        "Teeth Cleaning",
+        "Root Canal Treatment",
+        "Dental Restoration"
+    ],
+
+    "General Medicine": [
+        "General Health Check-up",
+        "Fever & Infection Care",
+        "Chronic Disease Management",
+        "Preventive Healthcare"
+    ],
+
+    "Pediatrics": [
+        "Child Health Check-up",
+        "Vaccination",
+        "Child Nutrition",
+        "Child Illness Treatment"
+    ],
+
+    "Pulmonology": [
+        "Respiratory Check-up",
+        "Asthma Care",
+        "Lung Infection Treatment",
+        "Breathing Disorder Care"
+    ],
+
+    "Orthopedics": [
+        "Bone & Joint Check-up",
+        "Fracture Treatment",
+        "Joint Pain Treatment",
+        "Sports Injury Care"
+    ]
+
+};
+
+
+// Get department and reason dropdowns
+
+const departmentSelect =
+    document.getElementById("dep");
+
+const reasonSelect =
+    document.getElementById("reason");
+
+
+// Update reasons when department changes
+
+departmentSelect.addEventListener("change", function() {
+
+    const selectedDepartment = departmentSelect.value;
+
+    // Clear previous options
+    reasonSelect.innerHTML = "";
+
+    const defaultOption = document.createElement("option");
+
+    defaultOption.value = "";
+
+    defaultOption.textContent =
+        selectedDepartment
+        ? "Select your Reason for Visit"
+        : "Select Department First";
+
+    reasonSelect.appendChild(defaultOption);
+
+    const facilities =
+        departmentFacilities[selectedDepartment] || [];
+
+    // Disable reason until department is selected
+    reasonSelect.disabled = facilities.length === 0;
+
+    // Add only services of selected department
+    facilities.forEach(function(facility) {
+
+        const option = document.createElement("option");
+
+        option.value = facility;
+
+        option.textContent = facility;
+
+        reasonSelect.appendChild(option);
+
+    });
+
+});
+
+
+// Connect form with FastAPI backend
+
+const form = document.getElementById("appointmentForm");
+
+form.addEventListener("submit", async function(event) {
+
+    event.preventDefault();
+
+    // Collect patient information
+    const appointmentData = {
+
+        full_name:
+            document.getElementById("name").value.trim(),
+
+        date_of_birth:
+            document.getElementById("dob").value,
+
+        phone:
+            document.getElementById("phone").value.trim(),
+
+        email:
+            document.getElementById("email").value.trim(),
+
+        department:
+            departmentSelect.value,
+
+        preferred_date:
+            document.getElementById("preferred_date").value,
+
+        preferred_time:
+            document.getElementById("preferred_time").value,
+
+        reason:
+            reasonSelect.value
+
+    };
+
+
+    // Validate fields
+
+    for (const value of Object.values(appointmentData)) {
+
+        if (!value) {
+
+            alert("Please fill in all the fields.");
+
+            return;
+        }
+
+    }
+
+
+    // Verify selected service belongs to department
+
+    const validReasons =
+        departmentFacilities[appointmentData.department] || [];
+
+    if (!validReasons.includes(appointmentData.reason)) {
+
+        alert("Please select a valid reason for your department.");
+
+        return;
+    }
+
+
+    const button = document.querySelector(".book");
+
+    button.disabled = true;
+
+
+    try {
+
+        // Send data to FastAPI
+
+        
+const response = await fetch(
+    "/api/appointments",
+    {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(appointmentData)
+    }
+);
+
+
+
+        const result = await response.json();
+
+
+        if (response.ok) {
+
+            alert(
+                "Appointment booked successfully! " +
+                "Your Appointment ID is: " +
+                result.appointment_id
+            );
+
+            // Reset the form
+            form.reset();
+
+            reasonSelect.innerHTML =
+                '<option value="">Select Department First</option>';
+
+            reasonSelect.disabled = true;
+
+        } else {
+
+            console.error("Backend error:", result);
+
+            alert(
+                "Unable to book appointment. " +
+                "Please check your details."
+            );
+
+        }
+
+    } catch (error) {
+
+        console.error("Booking error:", error);
+
+        alert(
+            "Unable to connect to FastAPI. " +
+            "Please make sure the backend is running."
+        );
+
+    } finally {
+
+        button.disabled = false;
+
+    }
+
+});
+
+</script>
 
 </body>
 </html>

@@ -1,0 +1,374 @@
+
+from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
+from pydantic import BaseModel, EmailStr
+from sqlalchemy import create_engine, Column, Integer, String
+from sqlalchemy.orm import declarative_base, sessionmaker
+from pathlib import Path
+from datetime import date
+import os
+
+
+# ==========================================
+# FASTAPI APPLICATION
+# ==========================================
+
+app = FastAPI(
+    title="City Care Hospital API",
+    description="Hospital Appointment Booking System",
+    version="1.0.0"
+)
+
+
+# ==========================================
+# PROJECT PATHS
+# ==========================================
+
+# backend folder
+BACKEND_DIR = Path(__file__).resolve().parent
+
+# Main project folder containing HTML/CSS files
+FRONTEND_DIR = BACKEND_DIR.parent
+
+
+# ==========================================
+# CORS CONFIGURATION
+# ==========================================
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "http://127.0.0.1:5500",
+        "http://localhost:5500"
+    ],
+    allow_credentials=False,
+    allow_methods=["GET", "POST"],
+    allow_headers=["Content-Type"]
+)
+
+
+# ==========================================
+# DATABASE CONNECTION
+# ==========================================
+
+# Uses SQLite locally.
+# Can use PostgreSQL with DATABASE_URL on Render.
+
+DATABASE_URL = os.getenv("DATABASE_URL")
+
+if not DATABASE_URL:
+    DATABASE_URL = (
+        f"sqlite:///{(BACKEND_DIR / 'hospital.db').as_posix()}"
+    )
+
+# Support older PostgreSQL URL format
+if DATABASE_URL.startswith("postgres://"):
+    DATABASE_URL = DATABASE_URL.replace(
+        "postgres://",
+        "postgresql://",
+        1
+    )
+
+connect_args = {}
+
+if DATABASE_URL.startswith("sqlite"):
+    connect_args = {"check_same_thread": False}
+
+engine = create_engine(
+    DATABASE_URL,
+    connect_args=connect_args,
+    pool_pre_ping=True
+)
+
+SessionLocal = sessionmaker(
+    autocommit=False,
+    autoflush=False,
+    bind=engine
+)
+
+Base = declarative_base()
+
+
+# ==========================================
+# DATABASE TABLE
+# ==========================================
+
+class AppointmentDB(Base):
+
+    __tablename__ = "appointments"
+
+    id = Column(
+        Integer,
+        primary_key=True,
+        index=True
+    )
+
+    full_name = Column(String(100), nullable=False)
+
+    date_of_birth = Column(String(20), nullable=False)
+
+    phone = Column(String(20), nullable=False)
+
+    email = Column(String(100), nullable=False)
+
+    department = Column(String(100), nullable=False)
+
+    preferred_date = Column(String(20), nullable=False)
+
+    preferred_time = Column(String(20), nullable=False)
+
+    reason = Column(String(500), nullable=False)
+
+
+# Create database tables
+Base.metadata.create_all(bind=engine)
+
+
+# ==========================================
+# PYDANTIC INPUT MODEL
+# ==========================================
+
+class Appointment(BaseModel):
+
+    full_name: str
+    date_of_birth: date
+    phone: str
+    email: EmailStr
+    department: str
+    preferred_date: date
+    preferred_time: str
+    reason: str
+
+
+# ==========================================
+# DEPARTMENT SERVICES
+# ==========================================
+
+department_facilities = {
+
+    "Cardiology": [
+        "Heart Check-up",
+        "ECG",
+        "Echocardiography",
+        "Cardiac Consultation"
+    ],
+
+    "Dentistry": [
+        "Dental Check-up",
+        "Teeth Cleaning",
+        "Root Canal Treatment",
+        "Dental Restoration"
+    ],
+
+    "General Medicine": [
+        "General Health Check-up",
+        "Fever & Infection Care",
+        "Chronic Disease Management",
+        "Preventive Healthcare"
+    ],
+
+    "Pediatrics": [
+        "Child Health Check-up",
+        "Vaccination",
+        "Child Nutrition",
+        "Child Illness Treatment"
+    ],
+
+    "Pulmonology": [
+        "Respiratory Check-up",
+        "Asthma Care",
+        "Lung Infection Treatment",
+        "Breathing Disorder Care"
+    ],
+
+    "Orthopedics": [
+        "Bone & Joint Check-up",
+        "Fracture Treatment",
+        "Joint Pain Treatment",
+        "Sports Injury Care"
+    ]
+
+}
+
+
+# ==========================================
+# HEALTH CHECK API
+# ==========================================
+
+@app.get("/api/health")
+def health_check():
+
+    return {
+        "status": "success",
+        "message": "City Care Hospital Backend is Running!"
+    }
+
+
+# ==========================================
+# GET DEPARTMENTS
+# ==========================================
+
+@app.get("/api/departments")
+def get_departments():
+
+    return department_facilities
+
+
+# ==========================================
+# BOOK APPOINTMENT
+# ==========================================
+
+@app.post("/api/appointments", status_code=201)
+def book_appointment(appointment: Appointment):
+
+    # Validate department
+    if appointment.department not in department_facilities:
+
+        raise HTTPException(
+            status_code=400,
+            detail="Invalid department selected"
+        )
+
+    # Validate selected reason
+    allowed_reasons = department_facilities[
+        appointment.department
+    ]
+
+    if appointment.reason not in allowed_reasons:
+
+        raise HTTPException(
+            status_code=400,
+            detail="Invalid reason for selected department"
+        )
+
+    # Validate appointment date
+    if appointment.preferred_date < date.today():
+
+        raise HTTPException(
+            status_code=400,
+            detail="Appointment date cannot be in the past"
+        )
+
+    db = SessionLocal()
+
+    try:
+
+        new_appointment = AppointmentDB(
+
+            full_name=appointment.full_name,
+            date_of_birth=str(appointment.date_of_birth),
+            phone=appointment.phone,
+            email=str(appointment.email),
+            department=appointment.department,
+            preferred_date=str(appointment.preferred_date),
+            preferred_time=appointment.preferred_time,
+            reason=appointment.reason
+
+        )
+
+        db.add(new_appointment)
+
+        db.commit()
+
+        db.refresh(new_appointment)
+
+        return {
+            "message": "Appointment booked successfully!",
+            "appointment_id": new_appointment.id
+        }
+
+    except Exception:
+
+        db.rollback()
+        raise HTTPException(
+            status_code=500,
+            detail="Unable to save appointment"
+        )
+
+    finally:
+
+        db.close()
+
+
+# ==========================================
+# VIEW ALL APPOINTMENTS
+# ==========================================
+
+# This endpoint contains patient information.
+# Do not expose it publicly without authentication.
+
+@app.get("/api/appointments", include_in_schema=False)
+def get_appointments():
+
+    # Disabled by default for public deployment.
+    if os.getenv("ENABLE_APPOINTMENT_LIST") != "true":
+        raise HTTPException(
+            status_code=403,
+            detail="Appointment listing requires admin access"
+        )
+
+    db = SessionLocal()
+
+    try:
+
+        appointments = db.query(
+            AppointmentDB
+        ).order_by(
+            AppointmentDB.id.desc()
+        ).all()
+
+        return [
+
+            {
+                "id": a.id,
+                "full_name": a.full_name,
+                "date_of_birth": a.date_of_birth,
+                "phone": a.phone,
+                "email": a.email,
+                "department": a.department,
+                "preferred_date": a.preferred_date,
+                "preferred_time": a.preferred_time,
+                "reason": a.reason
+            }
+
+            for a in appointments
+
+        ]
+
+    finally:
+
+        db.close()
+
+
+# ==========================================
+# SERVE FRONTEND WEBSITE
+# ==========================================
+
+# Open hospital homepage
+@app.get("/")
+def home():
+
+    homepage = FRONTEND_DIR / "index.html"
+
+    if not homepage.exists():
+        raise HTTPException(
+            status_code=404,
+            detail="index.html not found"
+        )
+
+    return FileResponse(homepage)
+
+
+# Serve HTML, CSS, JS and images
+# Keep this at the very bottom.
+
+app.mount(
+    "/",
+    StaticFiles(
+        directory=str(FRONTEND_DIR),
+        html=True
+    ),
+    name="frontend"
+)
