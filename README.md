@@ -1,38 +1,50 @@
-City Care Hospital
-This is a simple hospital website that I made to give users basic information about a hospital and its different departments.
+# 🏥 City Care Hospital
 
-About:
-The website contains information about the hospital, available departments, services, and an appointment section. I tried to keep the design simple so that the important information is easy to find.
+A full-stack hospital website designed to simplify online appointment booking and provide a smooth, user-friendly experience for patients.
 
-What is included
-   Hospital information
-   Different medical departments
-   Doctor/service information
-   Appointment section
-   Emergency contact details
-   Responsive design
-   Departments
+## 🌐 Live Demo
 
-The website includes the following departments:
-   Cardiology
-   Dentistry
-   General Medicine
-   Pediatrics
-   Orthopedics
-   Pulmonology
+🚀 [Visit Website](https://city-hospital-u4k9.onrender.com/)
+💻 [GitHub Repository](https://github.com/vedikadubey16-crypto/city-hospital)
 
-Technologies Used
-   HTML
-   CSS
+*Note: The GitHub Pages link hosts the frontend. Appointment booking requires the FastAPI backend.*
 
+## ✨ Features
 
-The project is hosted using GitHub Pages.
+- Responsive hospital website
+- Six medical departments
+- Online appointment booking
+- Dynamic department-wise service selection
+- Appointment confirmation with booking ID
+- View latest booking in the current browser
+- PostgreSQL database integration
 
-Live Demo:
-https://vedikadubey16-crypto.github.io/city-hospital/
+## 🛠️ Tech Stack
 
-Purpose
-I made this project to practice creating a complete frontend website and to get more familiar with HTML, CSS, JavaScript, and designing a website around a real-world use case.
+| Frontend | Backend | Database | Deployment |
+|---|---|---|---|
+| HTML, CSS, JavaScript | Python, FastAPI | Neon PostgreSQL | Render, GitHub Pages |
 
-Author
-Vedika Dubey
+## ⚙️ How It Works
+
+1. Patients fill out the appointment form.
+2. FastAPI validates and stores bookings in PostgreSQL.
+3. A unique appointment ID is generated.
+4. Patients can view their latest booking in the same browser.
+
+## 🚀 Future Improvements
+
+- Secure patient login
+- Doctor appointment scheduling
+- Email confirmations
+- Patient-specific appointment history
+
+## 👩‍💻 Developer
+
+**Vedika Dubey**
+
+GitHub: [@vedikadubey16-crypto](https://github.com/vedikadubey16-crypto)
+
+---
+
+⭐ Star this repository if you find it useful!
