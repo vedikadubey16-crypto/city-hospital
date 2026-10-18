@@ -411,24 +411,63 @@ form.addEventListener("submit", async function(event) {
 
         // Send data to FastAPI
 
-        
-const response = await fetch(
-    "/api/appointments",
-    {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(appointmentData)
-    }
-);
-
-
+        const response = await fetch(
+            "/api/appointments",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(appointmentData)
+            }
+        );
 
         const result = await response.json();
 
 
         if (response.ok) {
+
+            // Appointment has been saved by FastAPI.
+
+            // NEW: Save a copy in this browser for the
+            // appointments.html demonstration table.
+
+            let historySaved = false;
+
+            try {
+
+                const storedAppointments = JSON.parse(
+                    localStorage.getItem(
+                        "demoAppointments"
+                    ) || "[]"
+                );
+
+                const savedAppointments =
+                    Array.isArray(storedAppointments)
+                    ? storedAppointments
+                    : [];
+
+                savedAppointments.push({
+                    ...appointmentData,
+                    id: result.appointment_id
+                });
+
+                localStorage.setItem(
+                    "demoAppointments",
+                    JSON.stringify(savedAppointments)
+                );
+
+                historySaved = true;
+
+            } catch (storageError) {
+
+                console.error(
+                    "Unable to save browser history:",
+                    storageError
+                );
+
+            }
+
 
             alert(
                 "Appointment booked successfully! " +
@@ -436,13 +475,31 @@ const response = await fetch(
                 result.appointment_id
             );
 
-            // Reset the form
-            form.reset();
 
-            reasonSelect.innerHTML =
-                '<option value="">Select Department First</option>';
+            // NEW: Redirect to appointments.html
+            // only if browser history was saved.
 
-            reasonSelect.disabled = true;
+            if (historySaved) {
+
+                window.location.href =
+                    "appointments.html";
+
+            } else {
+
+                alert(
+                    "Your appointment was booked, " +
+                    "but it could not be added to " +
+                    "this browser's appointment table."
+                );
+
+                form.reset();
+
+                reasonSelect.innerHTML =
+                    '<option value="">Select Department First</option>';
+
+                reasonSelect.disabled = true;
+
+            }
 
         } else {
 

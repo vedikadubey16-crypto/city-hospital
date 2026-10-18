@@ -44,10 +44,6 @@
             font-weight: bold;
         }
 
-        header a:hover {
-            text-decoration: underline;
-        }
-
         .appointments-page {
             padding: 50px 5%;
             min-height: 70vh;
@@ -68,9 +64,7 @@
             width: 100%;
             overflow-x: auto;
             background: linear-gradient(
-                to right,
-                #90cfef,
-                #f9f9f9
+                to right, #90cfef, #f9f9f9
             );
             padding: 20px;
             border-radius: 10px;
@@ -93,7 +87,6 @@
         td {
             padding: 14px;
             border-bottom: 1px solid #ddd;
-            overflow-wrap: anywhere;
         }
 
         tbody tr:hover {
@@ -106,36 +99,25 @@
             font-weight: bold;
         }
 
-        .error {
-            color: #b42318;
-        }
-
-        .success {
-            color: #176b36;
-        }
-
-        .refresh-container {
+        .button-container {
             text-align: center;
-            margin-top: 20px;
+            margin-top: 25px;
         }
 
-        .refresh-btn {
+        .btn {
+            display: inline-block;
             background: rgb(4, 4, 147);
             color: white;
-            border: none;
+            padding: 12px 24px;
             border-radius: 6px;
-            padding: 12px 25px;
-            font-size: 15px;
+            text-decoration: none;
+            border: none;
             cursor: pointer;
+            font-size: 15px;
         }
 
-        .refresh-btn:hover {
+        .btn:hover {
             background: rgb(3, 3, 74);
-        }
-
-        .refresh-btn:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
         }
 
         footer {
@@ -153,14 +135,6 @@
 
             h1 {
                 font-size: 30px;
-            }
-
-            .appointments-page {
-                padding: 30px 4%;
-            }
-
-            .table-container {
-                padding: 10px;
             }
         }
     </style>
@@ -183,8 +157,8 @@
     <h1>Booked Appointments</h1>
 
     <p class="description">
-        View appointments booked through
-        City Care Hospital.
+        View appointments booked in this browser
+        through City Care Hospital.
     </p>
 
     <div class="table-container">
@@ -205,22 +179,17 @@
 
             <tbody id="appointmentsBody">
             </tbody>
+
         </table>
 
     </div>
 
-    <p id="message" role="status" aria-live="polite">
-        Loading appointments...
-    </p>
+    <p id="message" role="status"></p>
 
-    <div class="refresh-container">
-        <button
-            type="button"
-            class="refresh-btn"
-            id="refreshBtn"
-        >
-            Refresh Appointments
-        </button>
+    <div class="button-container">
+        <a href="booking.html" class="btn">
+            Book Another Appointment
+        </a>
     </div>
 
 </main>
@@ -233,155 +202,80 @@
 
 <script>
 
-    // Relative API URL works locally and on Render.
-    const API_URL = "/api/appointments";
+    function loadAppointments() {
 
-    const tableBody = document.getElementById(
-        "appointmentsBody"
-    );
+        const tableBody = document.getElementById(
+            "appointmentsBody"
+        );
 
-    const message = document.getElementById(
-        "message"
-    );
+        const message = document.getElementById(
+            "message"
+        );
 
-    const refreshBtn = document.getElementById(
-        "refreshBtn"
-    );
-
-    const fields = [
-        "full_name",
-        "date_of_birth",
-        "phone",
-        "email",
-        "department",
-        "preferred_date",
-        "preferred_time",
-        "reason"
-    ];
-
-    function showMessage(text, type = "") {
-        message.textContent = text;
-        message.className = type;
-    }
-
-    async function loadAppointments() {
-
-        refreshBtn.disabled = true;
         tableBody.replaceChildren();
 
-        showMessage("Loading appointments...");
+        let appointments;
 
         try {
-
-            const response = await fetch(API_URL, {
-                method: "GET",
-                headers: {
-                    "Accept": "application/json"
-                },
-                cache: "no-store"
-            });
-
-            // The backend is running but access is restricted.
-            if (response.status === 403) {
-                showMessage(
-                    "Appointment records are restricted. " +
-                    "Administrator authentication is required.",
-                    "error"
-                );
-                return;
-            }
-
-            if (response.status === 401) {
-                showMessage(
-                    "Please sign in as an administrator " +
-                    "to view appointments.",
-                    "error"
-                );
-                return;
-            }
-
-            if (response.status === 404) {
-                showMessage(
-                    "Appointment API was not found. " +
-                    "Please check the backend route.",
-                    "error"
-                );
-                return;
-            }
-
-            if (!response.ok) {
-                throw new Error(
-                    "HTTP error: " + response.status
-                );
-            }
-
-            const appointments = await response.json();
+            appointments = JSON.parse(
+                localStorage.getItem("demoAppointments") || "[]"
+            );
 
             if (!Array.isArray(appointments)) {
-                throw new Error(
-                    "Unexpected response from backend"
-                );
+                throw new Error("Invalid saved data");
             }
-
-            if (appointments.length === 0) {
-                showMessage(
-                    "No appointments have been booked yet."
-                );
-                return;
-            }
-
-            appointments.forEach(function(appointment) {
-
-                const row = document.createElement("tr");
-
-                fields.forEach(function(field) {
-
-                    const cell = document.createElement("td");
-
-                    // textContent prevents HTML injection.
-                    cell.textContent =
-                        appointment[field] ?? "";
-
-                    row.appendChild(cell);
-                });
-
-                tableBody.appendChild(row);
-            });
-
-            showMessage(
-                appointments.length +
-                " appointment(s) found.",
-                "success"
-            );
 
         } catch (error) {
-
-            console.error(
-                "Error loading appointments:",
-                error
-            );
-
-            showMessage(
-                "Unable to load appointments. " +
-                "Please try again later.",
-                "error"
-            );
-
-        } finally {
-
-            refreshBtn.disabled = false;
-
+            console.error(error);
+            message.textContent =
+                "Unable to read saved appointments.";
+            return;
         }
+
+        if (appointments.length === 0) {
+            message.textContent =
+                "No appointments have been booked " +
+                "in this browser yet.";
+            return;
+        }
+
+        const fields = [
+            "full_name",
+            "date_of_birth",
+            "phone",
+            "email",
+            "department",
+            "preferred_date",
+            "preferred_time",
+            "reason"
+        ];
+
+        appointments.forEach(function(appointment) {
+
+            const row = document.createElement("tr");
+
+            fields.forEach(function(field) {
+
+                const cell = document.createElement("td");
+
+                cell.textContent =
+                    appointment[field] ?? "";
+
+                row.appendChild(cell);
+
+            });
+
+            tableBody.appendChild(row);
+
+        });
+
+        message.textContent =
+            appointments.length +
+            " appointment(s) found.";
+
     }
 
-    // Load appointments when the page opens.
     loadAppointments();
-
-    // Allow manual refresh.
-    refreshBtn.addEventListener(
-        "click",
-        loadAppointments
-    );
 
 </script>
 
